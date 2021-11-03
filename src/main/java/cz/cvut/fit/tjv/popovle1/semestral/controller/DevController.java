@@ -1,6 +1,7 @@
 package cz.cvut.fit.tjv.popovle1.semestral.controller;
 
 import cz.cvut.fit.tjv.popovle1.semestral.dto.DevDTO;
+import cz.cvut.fit.tjv.popovle1.semestral.entity.Dev;
 import cz.cvut.fit.tjv.popovle1.semestral.exception.DevAlreadyExistsException;
 import cz.cvut.fit.tjv.popovle1.semestral.exception.DevNotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.service.DevService;
@@ -16,10 +17,10 @@ public class DevController {
     private DevService devService;
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody DevDTO devDTO) {
+    public ResponseEntity create(@RequestBody DevDTO devDTO) {
         try {
-            devService.create(devDTO);
-            return ResponseEntity.ok("User is saved.");
+            DevDTO created = devService.create(devDTO);
+            return ResponseEntity.ok(created);
         } catch (DevAlreadyExistsException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
@@ -50,7 +51,7 @@ public class DevController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    public ResponseEntity delete(@PathVariable Long id) {
         try {
             devService.delete(id);
             return ResponseEntity.ok("Developer is deleted.");

@@ -23,6 +23,13 @@ public class Dev {
         this.specialization = specialization;
     }
 
+    public Dev(Long id, String name, String surname, String specialization) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.specialization = specialization;
+    }
+
     public Long getId() {
         return id;
     }

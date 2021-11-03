@@ -5,35 +5,25 @@ import cz.cvut.fit.tjv.popovle1.semestral.entity.Dev;
 import java.util.Optional;
 
 public class DevDTO {
-    private Long id;
     private String name;
     private String surname;
     private String specialization;
 
     public static DevDTO toDTO(Dev dev) {
         DevDTO dto = new DevDTO();
-        dto.setId(dev.getId());
         dto.setName(dev.getName());
         dto.setSurname(dev.getSurname());
         dto.setSpecialization(dev.getSpecialization());
         return dto;
     }
 
-    public static Optional<DevDTO> toDTO(Optional<Dev> dev) {
-        if (dev.isEmpty())
-            return Optional.empty();
-        return Optional.of(toDTO(dev.get()));
-    }
-
     public DevDTO() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public DevDTO(String name, String surname, String specialization) {
+        this.name = name;
+        this.surname = surname;
+        this.specialization = specialization;
     }
 
     public String getName() {
