@@ -18,9 +18,6 @@ public class DevService {
     private DevRepo devRepo;
 
     public DevDTO create(DevDTO devDTO) throws Exception {
-        if (devRepo.findById(DevConverter.fromDTO(devDTO).getId()).isPresent()) {
-            throw new DevAlreadyExistsException("That developer already exists.");
-        }
         return DevConverter.toDTO(devRepo.save(new Dev(devDTO.getName(), devDTO.getSurname(), devDTO.getSpecialization())));
     }
 
@@ -39,7 +36,8 @@ public class DevService {
         dev.setName(devDTO.getName());
         dev.setSurname(devDTO.getSurname());
         dev.setSpecialization(devDTO.getSpecialization());
-        return DevConverter.toDTO(dev);
+
+        return DevConverter.toDTO(devRepo.save(dev));
     }
 
     public void delete(Long id) throws Exception {

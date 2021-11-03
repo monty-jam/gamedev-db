@@ -21,8 +21,6 @@ public class DevController {
         try {
             DevDTO created = devService.create(devDTO);
             return ResponseEntity.ok(created);
-        } catch (DevAlreadyExistsException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Unknown error.");
         }
