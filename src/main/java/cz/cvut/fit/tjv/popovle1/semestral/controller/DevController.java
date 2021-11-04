@@ -1,8 +1,6 @@
 package cz.cvut.fit.tjv.popovle1.semestral.controller;
 
 import cz.cvut.fit.tjv.popovle1.semestral.dto.DevDTO;
-import cz.cvut.fit.tjv.popovle1.semestral.entity.Dev;
-import cz.cvut.fit.tjv.popovle1.semestral.exception.DevAlreadyExistsException;
 import cz.cvut.fit.tjv.popovle1.semestral.exception.DevNotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.service.DevService;
 import org.springframework.beans.factory.annotation.Autowired;

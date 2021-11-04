@@ -3,13 +3,10 @@ package cz.cvut.fit.tjv.popovle1.semestral.service;
 import cz.cvut.fit.tjv.popovle1.semestral.converter.DevConverter;
 import cz.cvut.fit.tjv.popovle1.semestral.dto.DevDTO;
 import cz.cvut.fit.tjv.popovle1.semestral.entity.Dev;
-import cz.cvut.fit.tjv.popovle1.semestral.exception.DevAlreadyExistsException;
 import cz.cvut.fit.tjv.popovle1.semestral.exception.DevNotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.repository.DevRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class DevService {
