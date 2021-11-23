@@ -2,12 +2,15 @@ package cz.cvut.fit.tjv.popovle1.semestral.service;
 
 import cz.cvut.fit.tjv.popovle1.semestral.converter.GameConverter;
 import cz.cvut.fit.tjv.popovle1.semestral.dto.GameDTO;
+import cz.cvut.fit.tjv.popovle1.semestral.entity.Dev;
 import cz.cvut.fit.tjv.popovle1.semestral.entity.Game;
 import cz.cvut.fit.tjv.popovle1.semestral.exception.GameAlreadyExistsException;
 import cz.cvut.fit.tjv.popovle1.semestral.exception.GameNotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.repository.GameRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 
 @Service
 public class GameService {
@@ -27,6 +30,10 @@ public class GameService {
             throw new GameNotFoundException("This game is not found.");
         }
         return GameConverter.toDTO(gameRepo.findById(id).get());
+    }
+
+    public Collection<Game> readAll() {
+        return gameRepo.findAll();
     }
 
     public GameDTO update(GameDTO gameDTO, Long id) throws Exception {

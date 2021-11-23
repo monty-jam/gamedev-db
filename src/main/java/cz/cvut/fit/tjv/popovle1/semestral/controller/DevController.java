@@ -1,5 +1,6 @@
 package cz.cvut.fit.tjv.popovle1.semestral.controller;
 
+import cz.cvut.fit.tjv.popovle1.semestral.converter.DevConverter;
 import cz.cvut.fit.tjv.popovle1.semestral.dto.DevDTO;
 import cz.cvut.fit.tjv.popovle1.semestral.exception.DevNotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.service.DevService;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/devs")
@@ -34,6 +37,11 @@ public class DevController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Unknown error.");
         }
+    }
+
+    @GetMapping
+    public Collection<DevDTO> readAll() {
+        return DevConverter.toDTOs(devService.readAll());
     }
 
     @PutMapping("/{id}")
