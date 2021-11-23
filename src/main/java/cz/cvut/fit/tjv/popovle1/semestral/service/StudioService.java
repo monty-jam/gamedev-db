@@ -3,7 +3,6 @@ package cz.cvut.fit.tjv.popovle1.semestral.service;
 import cz.cvut.fit.tjv.popovle1.semestral.converter.StudioConverter;
 import cz.cvut.fit.tjv.popovle1.semestral.dto.StudioDTO;
 import cz.cvut.fit.tjv.popovle1.semestral.entity.Studio;
-import cz.cvut.fit.tjv.popovle1.semestral.exception.DevNotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.exception.StudioAlreadyExistsException;
 import cz.cvut.fit.tjv.popovle1.semestral.exception.StudioNotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.repository.StudioRepo;
@@ -25,14 +24,14 @@ public class StudioService {
 
     public StudioDTO read(Long id) throws Exception {
         if (studioRepo.findById(id).isEmpty()) {
-            throw new DevNotFoundException("That studio is not found.");
+            throw new StudioNotFoundException("This studio is not found.");
         }
         return StudioConverter.toDTO(studioRepo.findById(id).get());
     }
 
     public StudioDTO update(StudioDTO studioDTO, Long id) throws Exception {
         if (studioRepo.findById(id).isEmpty()) {
-            throw new StudioNotFoundException("That studio is not found.");
+            throw new StudioNotFoundException("This studio is not found.");
         }
         if (studioRepo.findByName(studioDTO.getName()).isPresent()
             && studioRepo.findByName(studioDTO.getName()).get().getId() != id) {
@@ -47,7 +46,7 @@ public class StudioService {
 
     public void delete(Long id) throws Exception {
         if (studioRepo.findById(id).isEmpty()) {
-            throw new DevNotFoundException("That developer is not found.");
+            throw new StudioNotFoundException("This studio is not found.");
         }
         studioRepo.deleteById(id);
     }

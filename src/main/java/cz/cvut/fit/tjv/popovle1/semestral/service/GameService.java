@@ -3,7 +3,6 @@ package cz.cvut.fit.tjv.popovle1.semestral.service;
 import cz.cvut.fit.tjv.popovle1.semestral.converter.GameConverter;
 import cz.cvut.fit.tjv.popovle1.semestral.dto.GameDTO;
 import cz.cvut.fit.tjv.popovle1.semestral.entity.Game;
-import cz.cvut.fit.tjv.popovle1.semestral.exception.DevNotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.exception.GameAlreadyExistsException;
 import cz.cvut.fit.tjv.popovle1.semestral.exception.GameNotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.repository.GameRepo;
@@ -25,14 +24,14 @@ public class GameService {
 
     public GameDTO read(Long id) throws Exception {
         if (gameRepo.findById(id).isEmpty()) {
-            throw new DevNotFoundException("That game is not found.");
+            throw new GameNotFoundException("This game is not found.");
         }
         return GameConverter.toDTO(gameRepo.findById(id).get());
     }
 
     public GameDTO update(GameDTO gameDTO, Long id) throws Exception {
         if (gameRepo.findById(id).isEmpty()) {
-            throw new GameNotFoundException("That game is not found.");
+            throw new GameNotFoundException("This game is not found.");
         }
         if (gameRepo.findByName(gameDTO.getName()).isPresent()
             && gameRepo.findByName(gameDTO.getName()).get().getId() != id) {
@@ -47,7 +46,7 @@ public class GameService {
 
     public void delete(Long id) throws Exception {
         if (gameRepo.findById(id).isEmpty()) {
-            throw new DevNotFoundException("That developer is not found.");
+            throw new GameNotFoundException("This game is not found.");
         }
         gameRepo.deleteById(id);
     }

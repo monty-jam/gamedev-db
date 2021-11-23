@@ -4,6 +4,7 @@ import cz.cvut.fit.tjv.popovle1.semestral.dto.DevDTO;
 import cz.cvut.fit.tjv.popovle1.semestral.exception.DevNotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.service.DevService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class DevController {
         try {
             return ResponseEntity.ok(devService.read(id));
         } catch (DevNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Unknown error.");
         }
@@ -40,7 +41,7 @@ public class DevController {
         try {
             return ResponseEntity.ok(devService.update(newDev, id));
         } catch (DevNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Unknown error.");
         }
@@ -52,7 +53,7 @@ public class DevController {
             devService.delete(id);
             return ResponseEntity.ok("Developer is deleted.");
         } catch (DevNotFoundException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Unknown error.");
         }
