@@ -12,4 +12,6 @@ public interface DevRepo extends CrudRepository<Dev, Long> {
     Optional<Dev> findById(Long id);
 
     Collection<Dev> findAll();
+
+    Iterable<Dev> findAllById(Iterable<Long> devsIds);
 }

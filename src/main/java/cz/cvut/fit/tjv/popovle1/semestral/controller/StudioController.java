@@ -27,10 +27,8 @@ public class StudioController {
         try {
             StudioDTO created = studioService.create(studioDTO);
             return ResponseEntity.ok(created);
-        } catch (StudioAlreadyExistsException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Unknown error.");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -41,7 +39,7 @@ public class StudioController {
         } catch (StudioNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Unknown error.");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -56,10 +54,8 @@ public class StudioController {
             return ResponseEntity.ok(studioService.update(newStudio, id));
         } catch (StudioNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (StudioAlreadyExistsException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Unknown error.");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -71,7 +67,7 @@ public class StudioController {
         } catch (StudioNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Unknown error.");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

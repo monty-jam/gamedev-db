@@ -3,6 +3,7 @@ package cz.cvut.fit.tjv.popovle1.semestral.controller;
 import cz.cvut.fit.tjv.popovle1.semestral.converter.DevConverter;
 import cz.cvut.fit.tjv.popovle1.semestral.dto.DevDTO;
 import cz.cvut.fit.tjv.popovle1.semestral.exception.DevNotFoundException;
+import cz.cvut.fit.tjv.popovle1.semestral.exception.StudioNotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.service.DevService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ public class DevController {
             DevDTO created = devService.create(devDTO);
             return ResponseEntity.ok(created);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Unknown error.");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -48,7 +49,7 @@ public class DevController {
     public ResponseEntity update(@PathVariable Long id, @RequestBody DevDTO newDev) {
         try {
             return ResponseEntity.ok(devService.update(newDev, id));
-        } catch (DevNotFoundException e) {
+        } catch (DevNotFoundException | StudioNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Unknown error.");

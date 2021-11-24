@@ -1,9 +1,6 @@
 package cz.cvut.fit.tjv.popovle1.semestral.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Dev {
@@ -14,21 +11,26 @@ public class Dev {
     private String surname;
     private String specialization;
 
+    @ManyToOne(targetEntity = Studio.class)
+    @JoinColumn(name = "studio_id")
+    private Studio studio = null;
+
     public Dev() {
     }
 
-    public Dev(String name, String surname, String specialization) {
+    public Dev(String name, String surname, String specialization, Studio studio) {
         this.name = name;
         this.surname = surname;
         this.specialization = specialization;
+        this.studio = studio;
     }
 
-    public Dev(Long id, String name, String surname, String specialization) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.specialization = specialization;
-    }
+//    public Dev(Long id, String name, String surname, String specialization, Studio studio) {
+//        this.id = id;
+//        this.name = name;
+//        this.surname = surname;
+//        this.specialization = specialization;
+//    }
 
     public Long getId() {
         return id;
@@ -60,5 +62,13 @@ public class Dev {
 
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
+    }
+
+    public Studio getStudio() {
+        return studio;
+    }
+
+    public void setStudio(Studio studio) {
+        this.studio = studio;
     }
 }

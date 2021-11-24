@@ -1,19 +1,27 @@
 package cz.cvut.fit.tjv.popovle1.semestral.dto;
 
-public class StudioDTO {
-    private final String Name;
-    private final String Country;
+import java.util.List;
 
-    public StudioDTO(String name, String country) {
-        Name = name;
-        Country = country;
+public class StudioDTO {
+    private final String name;
+    private final String country;
+    private List<Long> devsIds = null;
+
+    public StudioDTO(String name, String country, List<Long> devsIds) {
+        this.name = name;
+        this.country = country;
+        this.devsIds = devsIds;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public String getCountry() {
-        return Country;
+        return country;
+    }
+
+    public List<Long> getDevsIds() {
+        return devsIds;
     }
 }

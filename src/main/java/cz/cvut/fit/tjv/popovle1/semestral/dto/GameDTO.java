@@ -1,19 +1,19 @@
 package cz.cvut.fit.tjv.popovle1.semestral.dto;
 
 public class GameDTO {
-    private final String Name;
-    private final String Genre;
+    private final String name;
+    private final String genre;
 
     public GameDTO(String name, String genre) {
-        Name = name;
-        Genre = genre;
+        this.name = name;
+        this.genre = genre;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public String getGenre() {
-        return Genre;
+        return genre;
     }
 }
