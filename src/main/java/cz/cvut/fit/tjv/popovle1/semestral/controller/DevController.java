@@ -36,7 +36,7 @@ public class DevController {
         } catch (DevNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Unknown error.");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -52,7 +52,7 @@ public class DevController {
         } catch (DevNotFoundException | StudioNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Unknown error.");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -64,7 +64,7 @@ public class DevController {
         } catch (DevNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Unknown error.");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

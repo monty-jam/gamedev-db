@@ -11,7 +11,7 @@ public class Dev {
     private String surname;
     private String specialization;
 
-    @ManyToOne(targetEntity = Studio.class)
+    @ManyToOne()
     @JoinColumn(name = "studio_id")
     private Studio studio = null;
 

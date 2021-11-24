@@ -1,11 +1,7 @@
 package cz.cvut.fit.tjv.popovle1.semestral.controller;
 
-import cz.cvut.fit.tjv.popovle1.semestral.converter.DevConverter;
 import cz.cvut.fit.tjv.popovle1.semestral.converter.StudioConverter;
-import cz.cvut.fit.tjv.popovle1.semestral.dto.DevDTO;
 import cz.cvut.fit.tjv.popovle1.semestral.dto.StudioDTO;
-import cz.cvut.fit.tjv.popovle1.semestral.exception.GameAlreadyExistsException;
-import cz.cvut.fit.tjv.popovle1.semestral.exception.StudioAlreadyExistsException;
 import cz.cvut.fit.tjv.popovle1.semestral.exception.StudioNotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.service.StudioService;
 import org.springframework.beans.factory.annotation.Autowired;

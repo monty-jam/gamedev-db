@@ -1,6 +1,7 @@
 package cz.cvut.fit.tjv.popovle1.semestral.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Game {
@@ -11,6 +12,9 @@ public class Game {
     private String name;
     private String genre;
 
+    @ManyToMany(mappedBy = "games")
+    private List<Studio> studios = null;
+
     public Game() {
     }
 
@@ -19,11 +23,11 @@ public class Game {
         this.genre = genre;
     }
 
-    public Game(Long id, String name, String genre) {
-        this.id = id;
-        this.name = name;
-        this.genre = genre;
-    }
+//    public Game(Long id, String name, String genre) {
+//        this.id = id;
+//        this.name = name;
+//        this.genre = genre;
+//    }
 
     public Long getId() {
         return id;
@@ -47,5 +51,13 @@ public class Game {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public List<Studio> getStudios() {
+        return studios;
+    }
+
+    public void setStudios(List<Studio> studios) {
+        this.studios = studios;
     }
 }

@@ -76,7 +76,8 @@ public class DevService {
         if (dev.isEmpty()) {
             throw new DevNotFoundException("This developer is not found.");
         }
-        dev.get().getStudio().getDevs().remove(dev.get());
+        if (dev.get().getStudio() != null)
+            dev.get().getStudio().getDevs().remove(dev.get());
         devRepo.deleteById(id);
     }
 

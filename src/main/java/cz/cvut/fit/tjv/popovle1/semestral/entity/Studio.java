@@ -12,9 +12,15 @@ public class Studio {
     private String name;
     private String country;
 
-    @OneToMany(targetEntity = Dev.class)
-    @JoinColumn(name = "studio_id")
+    @OneToMany(mappedBy = "studio")
     private List<Dev> devs = null;
+
+    @ManyToMany
+    @JoinTable(name = "studio_game",
+            joinColumns = @JoinColumn(name = "studio_id"),
+            inverseJoinColumns = @JoinColumn(name = "game_id")
+    )
+    private List<Game> games = null;
 
     public Studio() {
     }
@@ -22,12 +28,6 @@ public class Studio {
     public Studio(String name, String country) {
         this.name = name;
         this.country = country;
-    }
-
-    public Studio(String name, String country, List<Dev> devs) {
-        this.name = name;
-        this.country = country;
-        this.devs = devs;
     }
 
 //    public Studio(Long id, String name, String country) {
@@ -66,5 +66,13 @@ public class Studio {
 
     public void setDevs(List<Dev> devs) {
         this.devs = devs;
+    }
+
+    public List<Game> getGames() {
+        return games;
+    }
+
+    public void setGames(List<Game> games) {
+        this.games = games;
     }
 }

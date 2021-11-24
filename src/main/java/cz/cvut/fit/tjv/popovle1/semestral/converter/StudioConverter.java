@@ -2,6 +2,7 @@ package cz.cvut.fit.tjv.popovle1.semestral.converter;
 
 import cz.cvut.fit.tjv.popovle1.semestral.dto.StudioDTO;
 import cz.cvut.fit.tjv.popovle1.semestral.entity.Dev;
+import cz.cvut.fit.tjv.popovle1.semestral.entity.Game;
 import cz.cvut.fit.tjv.popovle1.semestral.entity.Studio;
 
 import java.util.ArrayList;
@@ -18,7 +19,13 @@ public class StudioConverter {
         if (studio.getDevs() != null)
             for (Dev dev : studio.getDevs())
                 devsIds.add(dev.getId());
-        return new StudioDTO(studio.getName(), studio.getCountry(), devsIds);
+
+        List<Long> gamesIds = new ArrayList<>();
+        if (studio.getGames() != null)
+            for (Game game : studio.getGames())
+                gamesIds.add(game.getId());
+
+        return new StudioDTO(studio.getName(), studio.getCountry(), devsIds, gamesIds);
     }
 
     public static Collection<StudioDTO> toDTOs(Collection<Studio> studios) {

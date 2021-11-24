@@ -24,10 +24,8 @@ public class GameController {
         try {
             GameDTO created = gameService.create(gameDTO);
             return ResponseEntity.ok(created);
-        } catch (GameAlreadyExistsException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Unknown error.");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -38,7 +36,7 @@ public class GameController {
         } catch (GameNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Unknown error.");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -53,10 +51,8 @@ public class GameController {
             return ResponseEntity.ok(gameService.update(newGame, id));
         } catch (GameNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (GameAlreadyExistsException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Unknown error.");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -68,7 +64,7 @@ public class GameController {
         } catch (GameNotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Unknown error.");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
