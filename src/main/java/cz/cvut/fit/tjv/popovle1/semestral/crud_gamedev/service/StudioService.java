@@ -1,17 +1,17 @@
-package cz.cvut.fit.tjv.popovle1.semestral.service;
+package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.service;
 
-import cz.cvut.fit.tjv.popovle1.semestral.converter.StudioConverter;
-import cz.cvut.fit.tjv.popovle1.semestral.dto.StudioDTO;
-import cz.cvut.fit.tjv.popovle1.semestral.entity.Dev;
-import cz.cvut.fit.tjv.popovle1.semestral.entity.Game;
-import cz.cvut.fit.tjv.popovle1.semestral.entity.Studio;
-import cz.cvut.fit.tjv.popovle1.semestral.exception.DevNotFoundException;
-import cz.cvut.fit.tjv.popovle1.semestral.exception.GameNotFoundException;
-import cz.cvut.fit.tjv.popovle1.semestral.exception.StudioAlreadyExistsException;
-import cz.cvut.fit.tjv.popovle1.semestral.exception.StudioNotFoundException;
-import cz.cvut.fit.tjv.popovle1.semestral.repository.DevRepo;
-import cz.cvut.fit.tjv.popovle1.semestral.repository.GameRepo;
-import cz.cvut.fit.tjv.popovle1.semestral.repository.StudioRepo;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.converter.StudioConverter;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.dto.StudioDTO;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.repository.DevRepo;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.repository.GameRepo;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Dev;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Game;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Studio;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundException;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundException;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.AlreadyExistsException;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundException;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.repository.StudioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +31,7 @@ public class StudioService {
 
     public StudioDTO create(StudioDTO studioDTO) throws Exception {
         if (studioRepo.findByName(studioDTO.getName()).isPresent()) {
-            throw new StudioAlreadyExistsException("Studio with this name already exists.");
+            throw new AlreadyExistsException("Studio with this name already exists.");
         }
 
         Studio studio = new Studio(studioDTO.getName(), studioDTO.getCountry());
@@ -41,7 +41,7 @@ public class StudioService {
         if (studioDTO.getDevsIds() != null) {
             devs = (List<Dev>) devRepo.findAllById(studioDTO.getDevsIds());
             if (devs.size() != studioDTO.getDevsIds().size())
-                throw new DevNotFoundException("Some of given devs are not found.");
+                throw new NotFoundException("Some of given devs are not found.");
         }
 
         // Getting given games from DTO, catching an exception.
@@ -49,7 +49,7 @@ public class StudioService {
         if (studioDTO.getGamesIds() != null) {
             games = (List<Game>) gameRepo.findAllById(studioDTO.getGamesIds());
             if (games.size() != studioDTO.getGamesIds().size())
-                throw new GameNotFoundException("Some of given games are not found.");
+                throw new NotFoundException("Some of given games are not found.");
         }
 
         // All given devs got the created studio as their studio field.
@@ -70,7 +70,7 @@ public class StudioService {
 
     public StudioDTO read(Long id) throws Exception {
         if (studioRepo.findById(id).isEmpty()) {
-            throw new StudioNotFoundException("This studio is not found.");
+            throw new NotFoundException("This studio is not found.");
         }
         return StudioConverter.toDTO(studioRepo.findById(id).get());
     }
@@ -81,11 +81,11 @@ public class StudioService {
 
     public StudioDTO update(StudioDTO studioDTO, Long id) throws Exception {
         if (studioRepo.findById(id).isEmpty()) {
-            throw new StudioNotFoundException("This studio is not found.");
+            throw new NotFoundException("This studio is not found.");
         }
         if (studioRepo.findByName(studioDTO.getName()).isPresent()
             && studioRepo.findByName(studioDTO.getName()).get().getId() != id) {
-            throw new StudioAlreadyExistsException("Studio with this name already exists.");
+            throw new AlreadyExistsException("Studio with this name already exists.");
         }
 
         Studio studio = studioRepo.findById(id).get();
@@ -95,7 +95,7 @@ public class StudioService {
         if (studioDTO.getDevsIds() != null) {
             devs = (List<Dev>) devRepo.findAllById(studioDTO.getDevsIds());
             if (devs.size() != studioDTO.getDevsIds().size())
-                throw new DevNotFoundException("Some of given devs are not found.");
+                throw new NotFoundException("Some of given devs are not found.");
         }
 
         // Getting given games from DTO, catching an exception.
@@ -103,7 +103,7 @@ public class StudioService {
         if (studioDTO.getGamesIds() != null) {
             games = (List<Game>) gameRepo.findAllById(studioDTO.getGamesIds());
             if (games.size() != studioDTO.getGamesIds().size())
-                throw new GameNotFoundException("Some of given games are not found.");
+                throw new NotFoundException("Some of given games are not found.");
         }
 
         // Clearing studio field in all previous devs of given studio.
@@ -135,7 +135,7 @@ public class StudioService {
     public void delete(Long id) throws Exception {
         Optional<Studio> studio = studioRepo.findById(id);
         if (studio.isEmpty()) {
-            throw new StudioNotFoundException("This studio is not found.");
+            throw new NotFoundException("This studio is not found.");
         }
 
         // Clearing studio field in all previous devs of given studio.

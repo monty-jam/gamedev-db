@@ -1,6 +1,7 @@
-package cz.cvut.fit.tjv.popovle1.semestral.entity;
+package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,7 +14,7 @@ public class Game {
     private String genre;
 
     @ManyToMany(mappedBy = "games")
-    private List<Studio> studios = null;
+    private List<Studio> studios;
 
     public Game() {
     }

@@ -1,12 +1,10 @@
-package cz.cvut.fit.tjv.popovle1.semestral.dto;
-
-import cz.cvut.fit.tjv.popovle1.semestral.entity.Dev;
+package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.dto;
 
 public class DevDTO {
     private final String name;
     private final String surname;
     private final String specialization;
-    private Long studioId = null;
+    private final Long studioId;
 
     public DevDTO(String name, String surname, String specialization, Long studioId) {
         this.name = name;

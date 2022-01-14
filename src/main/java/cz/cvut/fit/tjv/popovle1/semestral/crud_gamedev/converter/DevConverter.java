@@ -1,7 +1,7 @@
-package cz.cvut.fit.tjv.popovle1.semestral.converter;
+package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.converter;
 
-import cz.cvut.fit.tjv.popovle1.semestral.dto.DevDTO;
-import cz.cvut.fit.tjv.popovle1.semestral.entity.Dev;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.dto.DevDTO;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Dev;
 
 import java.util.Collection;
 

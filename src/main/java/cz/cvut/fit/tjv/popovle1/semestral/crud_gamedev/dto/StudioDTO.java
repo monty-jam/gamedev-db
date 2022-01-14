@@ -1,12 +1,12 @@
-package cz.cvut.fit.tjv.popovle1.semestral.dto;
+package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.dto;
 
 import java.util.List;
 
 public class StudioDTO {
     private final String name;
     private final String country;
-    private List<Long> devsIds = null;
-    private List<Long> gamesIds = null;
+    private final List<Long> devsIds;
+    private final List<Long> gamesIds;
 
     public StudioDTO(String name, String country, List<Long> devsIds, List<Long> gamesIds) {
         this.name = name;

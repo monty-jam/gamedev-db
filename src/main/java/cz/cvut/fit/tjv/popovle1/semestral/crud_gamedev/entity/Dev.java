@@ -1,4 +1,4 @@
-package cz.cvut.fit.tjv.popovle1.semestral.entity;
+package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity;
 
 import javax.persistence.*;
 
@@ -13,7 +13,7 @@ public class Dev {
 
     @ManyToOne()
     @JoinColumn(name = "studio_id")
-    private Studio studio = null;
+    private Studio studio;
 
     public Dev() {
     }

@@ -1,6 +1,7 @@
-package cz.cvut.fit.tjv.popovle1.semestral.entity;
+package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,14 +14,14 @@ public class Studio {
     private String country;
 
     @OneToMany(mappedBy = "studio")
-    private List<Dev> devs = null;
+    private List<Dev> devs;
 
     @ManyToMany
     @JoinTable(name = "studio_game",
             joinColumns = @JoinColumn(name = "studio_id"),
             inverseJoinColumns = @JoinColumn(name = "game_id")
     )
-    private List<Game> games = null;
+    private List<Game> games;
 
     public Studio() {
     }

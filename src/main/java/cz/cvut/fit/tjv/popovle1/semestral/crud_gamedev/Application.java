@@ -1,4 +1,4 @@
-package cz.cvut.fit.tjv.popovle1.semestral;
+package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

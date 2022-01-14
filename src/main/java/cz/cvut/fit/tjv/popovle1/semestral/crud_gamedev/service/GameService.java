@@ -1,14 +1,14 @@
-package cz.cvut.fit.tjv.popovle1.semestral.service;
+package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.service;
 
-import cz.cvut.fit.tjv.popovle1.semestral.converter.GameConverter;
-import cz.cvut.fit.tjv.popovle1.semestral.dto.GameDTO;
-import cz.cvut.fit.tjv.popovle1.semestral.entity.Game;
-import cz.cvut.fit.tjv.popovle1.semestral.entity.Studio;
-import cz.cvut.fit.tjv.popovle1.semestral.exception.GameAlreadyExistsException;
-import cz.cvut.fit.tjv.popovle1.semestral.exception.GameNotFoundException;
-import cz.cvut.fit.tjv.popovle1.semestral.exception.StudioNotFoundException;
-import cz.cvut.fit.tjv.popovle1.semestral.repository.GameRepo;
-import cz.cvut.fit.tjv.popovle1.semestral.repository.StudioRepo;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.converter.GameConverter;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.dto.GameDTO;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundException;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.repository.GameRepo;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Game;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Studio;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.AlreadyExistsException;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundException;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.repository.StudioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class GameService {
 
     public GameDTO create(GameDTO gameDTO) throws Exception {
         if (gameRepo.findByName(gameDTO.getName()).isPresent()) {
-            throw new GameAlreadyExistsException("Game with this name already exists.");
+            throw new AlreadyExistsException("Game with this name already exists.");
         }
 
         Game game = new Game(gameDTO.getName(), gameDTO.getGenre());
@@ -36,7 +36,7 @@ public class GameService {
         if (gameDTO.getStudiosIds() != null) {
             studios = (List<Studio>) studioRepo.findAllById(gameDTO.getStudiosIds());
             if (studios.size() != gameDTO.getStudiosIds().size())
-                throw new StudioNotFoundException("Some of given studios are not found.");
+                throw new NotFoundException("Some of given studios are not found.");
         }
 
         // All new given studios add the created game in their games lists.
@@ -50,7 +50,7 @@ public class GameService {
 
     public GameDTO read(Long id) throws Exception {
         if (gameRepo.findById(id).isEmpty()) {
-            throw new GameNotFoundException("This game is not found.");
+            throw new NotFoundException("This game is not found.");
         }
         return GameConverter.toDTO(gameRepo.findById(id).get());
     }
@@ -61,11 +61,11 @@ public class GameService {
 
     public GameDTO update(GameDTO gameDTO, Long id) throws Exception {
         if (gameRepo.findById(id).isEmpty()) {
-            throw new GameNotFoundException("This game is not found.");
+            throw new NotFoundException("This game is not found.");
         }
         if (gameRepo.findByName(gameDTO.getName()).isPresent()
             && gameRepo.findByName(gameDTO.getName()).get().getId() != id) {
-            throw new GameAlreadyExistsException("Game with this name already exists.");
+            throw new AlreadyExistsException("Game with this name already exists.");
         }
 
         Game game = gameRepo.findById(id).get();
@@ -75,7 +75,7 @@ public class GameService {
         if (gameDTO.getStudiosIds() != null) {
             studios = (List<Studio>) studioRepo.findAllById(gameDTO.getStudiosIds());
             if (studios.size() != gameDTO.getStudiosIds().size())
-                throw new StudioNotFoundException("Some of given studios are not found.");
+                throw new NotFoundException("Some of given studios are not found.");
         }
 
         // Studios that previously were in relation with the given game delete it from their games lists.
@@ -97,7 +97,7 @@ public class GameService {
     public void delete(Long id) throws Exception {
         Optional<Game> game = gameRepo.findById(id);
         if (game.isEmpty()) {
-            throw new GameNotFoundException("This game is not found.");
+            throw new NotFoundException("This game is not found.");
         }
 
         // Studios that previously were in relation with given game delete it from their games lists.

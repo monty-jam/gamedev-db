@@ -1,8 +1,6 @@
-package cz.cvut.fit.tjv.popovle1.semestral.repository;
+package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.repository;
 
-import cz.cvut.fit.tjv.popovle1.semestral.entity.Dev;
-import cz.cvut.fit.tjv.popovle1.semestral.entity.Game;
-import cz.cvut.fit.tjv.popovle1.semestral.entity.Studio;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Game;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
