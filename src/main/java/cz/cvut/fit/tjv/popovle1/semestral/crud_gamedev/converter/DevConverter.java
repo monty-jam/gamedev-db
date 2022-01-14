@@ -12,9 +12,9 @@ public class DevConverter {
 
     public static DevDTO toDTO(Dev dev) {
         if (dev.getStudio() == null)
-            return new DevDTO(dev.getName(), dev.getSurname(), dev.getSpecialization(), null);
+            return new DevDTO(dev.getId(), dev.getName(), dev.getSurname(), dev.getSpecialization(), null);
         else
-            return new DevDTO(dev.getName(), dev.getSurname(), dev.getSpecialization(), dev.getStudio().getId());
+            return new DevDTO(dev.getId(), dev.getName(), dev.getSurname(), dev.getSpecialization(), dev.getStudio().getId());
     }
 
     public static Collection<DevDTO> toDTOs(Collection<Dev> devs) {
