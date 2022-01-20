@@ -2,6 +2,7 @@ package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.controller;
 
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.converter.GameConverter;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.dto.GameDTO;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.dto.StudioDTO;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.AlreadyExistsException;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.service.GameService;
@@ -9,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/games")
@@ -72,5 +75,17 @@ public class GameController {
             throw new Exception(e.getMessage());
         }
     }
+
+    @PutMapping("/hireHunt/{id}")
+    public ResponseEntity<StudioDTO> hireHunt(@PathVariable Long id, @RequestBody List<String> specializations) throws Exception {
+        try {
+            return ResponseEntity.ok(gameService.hireHunt(id, specializations));
+        } catch (NotFoundException e){
+            throw new NotFoundException(e.getMessage());
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
 
 }

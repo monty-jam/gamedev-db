@@ -6,7 +6,6 @@ import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundExcepti
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.repository.DevRepo;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Dev;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Studio;
-import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.repository.StudioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

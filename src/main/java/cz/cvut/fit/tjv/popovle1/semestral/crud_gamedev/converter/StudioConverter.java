@@ -25,7 +25,7 @@ public class StudioConverter {
             for (Game game : studio.getGames())
                 gamesIds.add(game.getId());
 
-        return new StudioDTO(studio.getName(), studio.getCountry(), devsIds, gamesIds);
+        return new StudioDTO(studio.getId(), studio.getName(), studio.getCountry(), devsIds, gamesIds);
     }
 
     public static Collection<StudioDTO> toDTOs(Collection<Studio> studios) {

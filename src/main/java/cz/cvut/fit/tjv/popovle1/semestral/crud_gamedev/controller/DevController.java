@@ -3,13 +3,10 @@ package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.controller;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.converter.DevConverter;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.dto.DevDTO;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundException;
-import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.service.DevService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collection;
 
@@ -39,7 +36,7 @@ public class DevController {
         } catch (NotFoundException e) {
             throw new NotFoundException(e.getMessage());
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw new Exception("Unknown error.");
         }
     }
 

@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -14,4 +15,6 @@ public interface StudioRepo extends CrudRepository<Studio, Long> {
     Optional<Studio> findByName(String name);
 
     Collection<Studio> findAll();
+
+    List<Studio> findByIdIn(List<Long> studiosIds);
 }

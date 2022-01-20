@@ -1,17 +1,21 @@
 package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.service;
 
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.converter.GameConverter;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.converter.StudioConverter;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.dto.GameDTO;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.dto.StudioDTO;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Dev;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundException;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.repository.DevRepo;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.repository.GameRepo;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Game;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Studio;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.AlreadyExistsException;
-import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.repository.StudioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +27,8 @@ public class GameService {
     private GameRepo gameRepo;
     @Autowired
     private StudioRepo studioRepo;
+    @Autowired
+    private DevRepo devRepo;
 
     public GameDTO create(GameDTO gameDTO) throws Exception {
         if (gameRepo.findByName(gameDTO.getName()).isPresent()) {
@@ -34,7 +40,7 @@ public class GameService {
         // Getting given studios from DTO, catching an exception.
         List<Studio> studios = null;
         if (gameDTO.getStudiosIds() != null) {
-            studios = (List<Studio>) studioRepo.findAllById(gameDTO.getStudiosIds());
+            studios = studioRepo.findByIdIn(gameDTO.getStudiosIds());
             if (studios.size() != gameDTO.getStudiosIds().size())
                 throw new NotFoundException("Some of given studios are not found.");
         }
@@ -64,7 +70,7 @@ public class GameService {
             throw new NotFoundException("This game is not found.");
         }
         if (gameRepo.findByName(gameDTO.getName()).isPresent()
-            && gameRepo.findByName(gameDTO.getName()).get().getId() != id) {
+                && gameRepo.findByName(gameDTO.getName()).get().getId() != id) {
             throw new AlreadyExistsException("Game with this name already exists.");
         }
 
@@ -73,7 +79,7 @@ public class GameService {
         // Getting given studios from DTO, catching an exception.
         List<Studio> studios = null;
         if (gameDTO.getStudiosIds() != null) {
-            studios = (List<Studio>) studioRepo.findAllById(gameDTO.getStudiosIds());
+            studios = studioRepo.findByIdIn(gameDTO.getStudiosIds());
             if (studios.size() != gameDTO.getStudiosIds().size())
                 throw new NotFoundException("Some of given studios are not found.");
         }
@@ -105,6 +111,30 @@ public class GameService {
             studio.getGames().remove(game.get());
 
         gameRepo.deleteById(id);
+    }
+
+    // The smallest studio, working on a game with a given id, hires all unemployed developers of given specializations
+    public StudioDTO hireHunt(Long id, List<String> specializations) throws Exception {
+        if (gameRepo.findById(id).isEmpty()) {
+            throw new NotFoundException("This game is not found.");
+        }
+
+        Game game = gameRepo.findById(id).get();
+        if (game.getStudios().isEmpty()) {
+            throw new Exception("This game is not developed by any studios.");
+        }
+
+        Studio minStudio = game.getStudios().get(0);
+        int minDevs = minStudio.getDevs().size();
+        for (Studio studio : game.getStudios())
+            if (studio.getDevs().size() < minDevs) {
+                minStudio = studio;
+                minDevs = studio.getDevs().size();
+            }
+
+        minStudio.getDevs().addAll(devRepo.findBySpecializationInAndStudioIdNull(specializations));
+
+        return StudioConverter.toDTO(studioRepo.save(minStudio));
     }
 
 

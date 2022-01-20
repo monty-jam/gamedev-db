@@ -19,7 +19,7 @@ public class GameConverter {
             for (Studio studio : game.getStudios())
                 studiosIds.add(studio.getId());
 
-        return new GameDTO(game.getName(), game.getGenre(), studiosIds);
+        return new GameDTO(game.getId(), game.getName(), game.getGenre(), studiosIds);
     }
 
     public static Collection<GameDTO> toDTOs(Collection<Game> games) {

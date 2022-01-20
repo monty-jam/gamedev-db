@@ -8,9 +8,7 @@ import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Dev;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Game;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Studio;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundException;
-import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.AlreadyExistsException;
-import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.repository.StudioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +37,7 @@ public class StudioService {
         // Getting given devs from DTO, catching an exception.
         List<Dev> devs = null;
         if (studioDTO.getDevsIds() != null) {
-            devs = (List<Dev>) devRepo.findAllById(studioDTO.getDevsIds());
+            devs = devRepo.findByIdIn(studioDTO.getDevsIds());
             if (devs.size() != studioDTO.getDevsIds().size())
                 throw new NotFoundException("Some of given devs are not found.");
         }
@@ -47,7 +45,7 @@ public class StudioService {
         // Getting given games from DTO, catching an exception.
         List<Game> games = null;
         if (studioDTO.getGamesIds() != null) {
-            games = (List<Game>) gameRepo.findAllById(studioDTO.getGamesIds());
+            games = gameRepo.findByIdIn(studioDTO.getGamesIds());
             if (games.size() != studioDTO.getGamesIds().size())
                 throw new NotFoundException("Some of given games are not found.");
         }
@@ -93,7 +91,7 @@ public class StudioService {
         // Getting given devs from DTO, catching an exception.
         List<Dev> devs = null;
         if (studioDTO.getDevsIds() != null) {
-            devs = (List<Dev>) devRepo.findAllById(studioDTO.getDevsIds());
+            devs = devRepo.findByIdIn(studioDTO.getDevsIds());
             if (devs.size() != studioDTO.getDevsIds().size())
                 throw new NotFoundException("Some of given devs are not found.");
         }
@@ -101,7 +99,7 @@ public class StudioService {
         // Getting given games from DTO, catching an exception.
         List<Game> games = null;
         if (studioDTO.getGamesIds() != null) {
-            games = (List<Game>) gameRepo.findAllById(studioDTO.getGamesIds());
+            games = gameRepo.findByIdIn(studioDTO.getGamesIds());
             if (games.size() != studioDTO.getGamesIds().size())
                 throw new NotFoundException("Some of given games are not found.");
         }
