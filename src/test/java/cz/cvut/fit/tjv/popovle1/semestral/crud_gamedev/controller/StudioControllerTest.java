@@ -79,8 +79,6 @@ public class StudioControllerTest {
         mockMvc.perform(
                         MockMvcRequestBuilders
                                 .get("/studios/{id}", 1)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content("{\"name\":\"id Software\", \"country\":\"United States of America\", \"devsIds\": [1], \"gamesIds\": [1]}")
                 ).andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", CoreMatchers.is(readStudioDTO.getName())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.country", CoreMatchers.is(readStudioDTO.getCountry())))
@@ -91,8 +89,6 @@ public class StudioControllerTest {
         mockMvc.perform(
                         MockMvcRequestBuilders
                                 .get("/studios/{id}", 3)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content("{\"name\":\"id Software\", \"country\":\"United States of America\", \"devsIds\": [1], \"gamesIds\": [1]}")
                 ).andExpect(MockMvcResultMatchers.status().isNotFound());
 
         Mockito.verify(studioService, Mockito.atLeast(2)).read(any(Integer.class));
