@@ -15,12 +15,12 @@ public class StudioConverter {
 //    }
 
     public static StudioDTO toDTO(Studio studio) {
-        List<Long> devsIds = new ArrayList<>();
+        List<Integer> devsIds = new ArrayList<>();
         if (studio.getDevs() != null)
             for (Dev dev : studio.getDevs())
                 devsIds.add(dev.getId());
 
-        List<Long> gamesIds = new ArrayList<>();
+        List<Integer> gamesIds = new ArrayList<>();
         if (studio.getGames() != null)
             for (Game game : studio.getGames())
                 gamesIds.add(game.getId());

@@ -54,7 +54,7 @@ public class GameService {
         return GameConverter.toDTO(gameRepo.save(game));
     }
 
-    public GameDTO read(Long id) throws Exception {
+    public GameDTO read(Integer id) throws Exception {
         if (gameRepo.findById(id).isEmpty()) {
             throw new NotFoundException("This game is not found.");
         }
@@ -65,7 +65,7 @@ public class GameService {
         return gameRepo.findAll();
     }
 
-    public GameDTO update(GameDTO gameDTO, Long id) throws Exception {
+    public GameDTO update(GameDTO gameDTO, Integer id) throws Exception {
         if (gameRepo.findById(id).isEmpty()) {
             throw new NotFoundException("This game is not found.");
         }
@@ -100,7 +100,7 @@ public class GameService {
         return GameConverter.toDTO(gameRepo.save(game));
     }
 
-    public void delete(Long id) throws Exception {
+    public void delete(Integer id) throws Exception {
         Optional<Game> game = gameRepo.findById(id);
         if (game.isEmpty()) {
             throw new NotFoundException("This game is not found.");
@@ -114,7 +114,7 @@ public class GameService {
     }
 
     // The smallest studio, working on a game with a given id, hires all unemployed developers of given specializations
-    public StudioDTO hireHunt(Long id, List<String> specializations) throws Exception {
+    public StudioDTO hireHunt(Integer id, List<String> specializations) throws Exception {
         if (gameRepo.findById(id).isEmpty()) {
             throw new NotFoundException("This game is not found.");
         }

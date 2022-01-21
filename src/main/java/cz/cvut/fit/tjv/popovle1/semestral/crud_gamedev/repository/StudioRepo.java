@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface StudioRepo extends CrudRepository<Studio, Long> {
-    Optional<Studio> findById(Long id);
+public interface StudioRepo extends CrudRepository<Studio, Integer> {
+    Optional<Studio> findById(Integer id);
 
     Optional<Studio> findByName(String name);
 
     Collection<Studio> findAll();
 
-    List<Studio> findByIdIn(List<Long> studiosIds);
+    List<Studio> findByIdIn(List<Integer> studiosIds);
 }

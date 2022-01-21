@@ -34,7 +34,7 @@ public class StudioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudioDTO> read(@PathVariable Long id) throws Exception {
+    public ResponseEntity<StudioDTO> read(@PathVariable Integer id) throws Exception {
         try {
             return ResponseEntity.ok(studioService.read(id));
         } catch (NotFoundException e) {
@@ -50,7 +50,7 @@ public class StudioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StudioDTO> update(@PathVariable Long id, @RequestBody StudioDTO newStudio) throws Exception {
+    public ResponseEntity<StudioDTO> update(@PathVariable Integer id, @RequestBody StudioDTO newStudio) throws Exception {
         try {
             return ResponseEntity.ok(studioService.update(newStudio, id));
         } catch (NotFoundException e) {
@@ -63,7 +63,7 @@ public class StudioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
+    public ResponseEntity<String> delete(@PathVariable Integer id) throws Exception {
         try {
             studioService.delete(id);
             return ResponseEntity.ok("Studio is deleted.");

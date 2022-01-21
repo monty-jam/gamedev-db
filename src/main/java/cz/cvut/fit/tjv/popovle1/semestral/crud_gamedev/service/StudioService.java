@@ -66,7 +66,7 @@ public class StudioService {
         return StudioConverter.toDTO(studioRepo.save(studio));
     }
 
-    public StudioDTO read(Long id) throws Exception {
+    public StudioDTO read(Integer id) throws Exception {
         if (studioRepo.findById(id).isEmpty()) {
             throw new NotFoundException("This studio is not found.");
         }
@@ -77,7 +77,7 @@ public class StudioService {
         return studioRepo.findAll();
     }
 
-    public StudioDTO update(StudioDTO studioDTO, Long id) throws Exception {
+    public StudioDTO update(StudioDTO studioDTO, Integer id) throws Exception {
         if (studioRepo.findById(id).isEmpty()) {
             throw new NotFoundException("This studio is not found.");
         }
@@ -130,7 +130,7 @@ public class StudioService {
         return StudioConverter.toDTO(studioRepo.save(studio));
     }
 
-    public void delete(Long id) throws Exception {
+    public void delete(Integer id) throws Exception {
         Optional<Studio> studio = studioRepo.findById(id);
         if (studio.isEmpty()) {
             throw new NotFoundException("This studio is not found.");

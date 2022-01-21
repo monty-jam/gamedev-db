@@ -8,7 +8,7 @@ import java.util.List;
 public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     @Column(unique = true)
     private String name;
     private String genre;
@@ -24,17 +24,17 @@ public class Game {
         this.genre = genre;
     }
 
-//    public Game(Long id, String name, String genre) {
+//    public Game(Integer id, String name, String genre) {
 //        this.id = id;
 //        this.name = name;
 //        this.genre = genre;
 //    }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

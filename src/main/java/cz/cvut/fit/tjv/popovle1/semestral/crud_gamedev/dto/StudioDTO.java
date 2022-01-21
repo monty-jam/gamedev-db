@@ -3,13 +3,13 @@ package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.dto;
 import java.util.List;
 
 public class StudioDTO {
-    private final Long id;
+    private final Integer id;
     private final String name;
     private final String country;
-    private final List<Long> devsIds;
-    private final List<Long> gamesIds;
+    private final List<Integer> devsIds;
+    private final List<Integer> gamesIds;
 
-    public StudioDTO(Long id, String name, String country, List<Long> devsIds, List<Long> gamesIds) {
+    public StudioDTO(Integer id, String name, String country, List<Integer> devsIds, List<Integer> gamesIds) {
         this.id = id;
         this.name = name;
         this.country = country;
@@ -17,7 +17,7 @@ public class StudioDTO {
         this.gamesIds = gamesIds;
     }
 
-    public Long getId() { return id; }
+    public Integer getId() { return id; }
 
     public String getName() {
         return name;
@@ -27,11 +27,11 @@ public class StudioDTO {
         return country;
     }
 
-    public List<Long> getDevsIds() {
+    public List<Integer> getDevsIds() {
         return devsIds;
     }
 
-    public List<Long> getGamesIds() {
+    public List<Integer> getGamesIds() {
         return gamesIds;
     }
 }

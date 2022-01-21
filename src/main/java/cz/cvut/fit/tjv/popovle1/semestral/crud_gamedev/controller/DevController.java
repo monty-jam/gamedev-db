@@ -30,7 +30,7 @@ public class DevController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DevDTO> read(@PathVariable Long id) throws Exception {
+    public ResponseEntity<DevDTO> read(@PathVariable Integer id) throws Exception {
         try {
             return ResponseEntity.ok(devService.read(id));
         } catch (NotFoundException e) {
@@ -46,7 +46,7 @@ public class DevController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DevDTO> update(@PathVariable Long id, @RequestBody DevDTO newDev) throws Exception {
+    public ResponseEntity<DevDTO> update(@PathVariable Integer id, @RequestBody DevDTO newDev) throws Exception {
         try {
             return ResponseEntity.ok(devService.update(newDev, id));
         } catch (NotFoundException e) {
@@ -57,7 +57,7 @@ public class DevController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
+    public ResponseEntity<String> delete(@PathVariable Integer id) throws Exception {
         try {
             devService.delete(id);
             return ResponseEntity.ok("Developer is deleted.");

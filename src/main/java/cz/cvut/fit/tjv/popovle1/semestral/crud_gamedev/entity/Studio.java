@@ -8,7 +8,7 @@ import java.util.List;
 public class Studio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     @Column(unique = true)
     private String name;
     private String country;
@@ -31,17 +31,17 @@ public class Studio {
         this.country = country;
     }
 
-//    public Studio(Long id, String name, String country) {
+//    public Studio(Integer id, String name, String country) {
 //        this.id = id;
 //        this.name = name;
 //        this.country = country;
 //    }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

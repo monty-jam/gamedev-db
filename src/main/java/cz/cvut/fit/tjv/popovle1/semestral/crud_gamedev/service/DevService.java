@@ -36,7 +36,7 @@ public class DevService {
         }
     }
 
-    public DevDTO read(Long id) throws Exception {
+    public DevDTO read(Integer id) throws Exception {
         if (devRepo.findById(id).isEmpty()) {
             throw new NotFoundException("This developer is not found.");
         }
@@ -47,7 +47,7 @@ public class DevService {
         return devRepo.findAll();
     }
 
-    public DevDTO update(DevDTO devDTO, Long id) throws Exception {
+    public DevDTO update(DevDTO devDTO, Integer id) throws Exception {
         if (devRepo.findById(id).isEmpty()) {
             throw new NotFoundException("This developer is not found.");
         }
@@ -70,7 +70,7 @@ public class DevService {
         return DevConverter.toDTO(devRepo.save(dev));
     }
 
-    public void delete(Long id) throws Exception {
+    public void delete(Integer id) throws Exception {
         Optional<Dev> dev = devRepo.findById(id);
         if (dev.isEmpty()) {
             throw new NotFoundException("This developer is not found.");

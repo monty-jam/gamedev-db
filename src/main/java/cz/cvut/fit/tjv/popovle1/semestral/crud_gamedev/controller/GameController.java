@@ -36,7 +36,7 @@ public class GameController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GameDTO> read(@PathVariable Long id) throws Exception {
+    public ResponseEntity<GameDTO> read(@PathVariable Integer id) throws Exception {
         try {
             return ResponseEntity.ok(gameService.read(id));
         } catch (NotFoundException e) {
@@ -52,7 +52,7 @@ public class GameController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GameDTO> update(@PathVariable Long id, @RequestBody GameDTO newGame) throws Exception {
+    public ResponseEntity<GameDTO> update(@PathVariable Integer id, @RequestBody GameDTO newGame) throws Exception {
         try {
             return ResponseEntity.ok(gameService.update(newGame, id));
         } catch (NotFoundException e) {
@@ -65,7 +65,7 @@ public class GameController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
+    public ResponseEntity<String> delete(@PathVariable Integer id) throws Exception {
         try {
             gameService.delete(id);
             return ResponseEntity.ok("Game is deleted.");
@@ -77,7 +77,7 @@ public class GameController {
     }
 
     @PutMapping("/hireHunt/{id}")
-    public ResponseEntity<StudioDTO> hireHunt(@PathVariable Long id, @RequestBody List<String> specializations) throws Exception {
+    public ResponseEntity<StudioDTO> hireHunt(@PathVariable Integer id, @RequestBody List<String> specializations) throws Exception {
         try {
             return ResponseEntity.ok(gameService.hireHunt(id, specializations));
         } catch (NotFoundException e){

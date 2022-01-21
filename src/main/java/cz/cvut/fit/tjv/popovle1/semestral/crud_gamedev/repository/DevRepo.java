@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface DevRepo extends CrudRepository<Dev, Long> {
-    Optional<Dev> findById(Long id);
+public interface DevRepo extends CrudRepository<Dev, Integer> {
+    Optional<Dev> findById(Integer id);
 
     Collection<Dev> findAll();
 
-    List<Dev> findByIdIn(List<Long> devsIds);
+    List<Dev> findByIdIn(List<Integer> devsIds);
 
     List<Dev> findBySpecializationInAndStudioIdNull(List<String> specializations);
 }

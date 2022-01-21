@@ -14,7 +14,7 @@ public class GameConverter {
 //    }
 
     public static GameDTO toDTO(Game game) {
-        List<Long> studiosIds = new ArrayList<>();
+        List<Integer> studiosIds = new ArrayList<>();
         if (game.getStudios() != null)
             for (Studio studio : game.getStudios())
                 studiosIds.add(studio.getId());

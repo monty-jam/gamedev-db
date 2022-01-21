@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface GameRepo extends CrudRepository<Game, Long> {
-    Optional<Game> findById(Long id);
+public interface GameRepo extends CrudRepository<Game, Integer> {
+    Optional<Game> findById(Integer id);
 
     Optional<Game> findByName(String name);
 
     Collection<Game> findAll();
 
-    List<Game> findByIdIn(List<Long> gamesIds);
+    List<Game> findByIdIn(List<Integer> gamesIds);
 }
