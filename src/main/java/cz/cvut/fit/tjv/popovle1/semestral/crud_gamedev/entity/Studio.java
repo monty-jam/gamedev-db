@@ -31,11 +31,11 @@ public class Studio {
         this.country = country;
     }
 
-//    public Studio(Integer id, String name, String country) {
-//        this.id = id;
-//        this.name = name;
-//        this.country = country;
-//    }
+    public Studio(Integer id, String name, String country) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+    }
 
 
     public Studio(Integer id, String name, String country, List<Dev> devs, List<Game> games) {

@@ -30,6 +30,13 @@ public class Game {
         this.genre = genre;
     }
 
+    public Game(Integer id, String name, String genre, List<Studio> studios) {
+        this.id = id;
+        this.name = name;
+        this.genre = genre;
+        this.studios = studios;
+    }
+
     public Integer getId() {
         return id;
     }

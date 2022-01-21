@@ -36,14 +36,10 @@ public class StudioServiceTest {
     private GameRepo gameRepo;
 
     private final Dev dev = new Dev(1, "John", "Carmack", "Programmer", null);
-    private final DevDTO devDTO = new DevDTO(null, "John", "Carmack", "Programmer", null);
     private final Dev newDev =  new Dev(2, "Michel", "Ancel", "Art Designer", null);
-    private final DevDTO newDevDTO = new DevDTO(null, "Michel", "Ancel", "Art Designer", null);
 
     private final Game game = new Game(1, "Doom", "Shooter");
-    private final GameDTO gameDTO = new GameDTO(1, "Doom", "Shooter", null);
     private final Game newGame = new Game(2, "Rayman", "Platformer");
-    private final GameDTO newGameDTO = new GameDTO(2, "Rayman", "Platformer", null);
 
     private final Studio studio = new Studio(1, "id Software", "United States of America", List.of(dev), List.of(game));
     private final StudioDTO studioDTO = new StudioDTO(null, "id Software", "United States of America", List.of(1), List.of(1));
@@ -52,9 +48,10 @@ public class StudioServiceTest {
 
     @Test
     void createTest() throws Exception {
-        BDDMockito.given(studioRepo.findByName(any(String.class))).willReturn(null);
-        BDDMockito.given(devRepo.findByIdIn(List.of(any(Integer.class)))).willReturn(List.of(dev));
-        BDDMockito.given(gameRepo.findByIdIn(List.of(any(Integer.class)))).willReturn(List.of(game));
+        BDDMockito.given(studioRepo.findByName(any(String.class))).willReturn(Optional.empty());
+
+        BDDMockito.given(devRepo.findByIdIn(studioDTO.getDevsIds())).willReturn(studio.getDevs());
+        BDDMockito.given(gameRepo.findByIdIn(studioDTO.getGamesIds())).willReturn(studio.getGames());
 
         BDDMockito.given(studioRepo.save(any(Studio.class))).willReturn(studio);
         StudioDTO retStudio = studioService.create(studioDTO);
