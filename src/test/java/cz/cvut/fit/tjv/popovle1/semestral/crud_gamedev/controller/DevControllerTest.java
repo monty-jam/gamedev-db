@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -110,11 +109,37 @@ public class DevControllerTest {
 
     @Test
     void updateTest() throws Exception {
+        DevDTO updateDevDTO = new DevDTO(null, "Michel", "Ancel", "Art Designer", 2);
 
+        BDDMockito.given(devService.update(any(DevDTO.class), any(Integer.class))).willReturn(updateDevDTO);
+        mockMvc.perform(
+                        MockMvcRequestBuilders
+                                .put("/devs/{id}", 1)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{\"name\":\"Michel\", \"surname\":\"Ancel\", \"specialization\":\"Art Designer\", \"studioId\":\"2\"}")
+                ).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name", CoreMatchers.is(updateDevDTO.getName())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.surname", CoreMatchers.is(updateDevDTO.getSurname())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.specialization", CoreMatchers.is(updateDevDTO.getSpecialization())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.studioId", CoreMatchers.is(updateDevDTO.getStudioId())));
+
+        BDDMockito.given(devService.update(any(DevDTO.class), any(Integer.class))).willThrow(NotFoundException.class);
+        mockMvc.perform(
+                MockMvcRequestBuilders
+                        .put("/devs/{id}", 3)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\":\"Michel\", \"surname\":\"Ancel\", \"specialization\":\"Art Designer\", \"studioId\":\"2\"}")
+        ).andExpect(MockMvcResultMatchers.status().isNotFound());
+
+        Mockito.verify(devService, Mockito.atLeast(2)).update(any(DevDTO.class), any(Integer.class));
     }
 
     @Test
     void deleteTest() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/devs/{id}", 1)
+        ).andExpect(MockMvcResultMatchers.status().isOk());
 
+        Mockito.verify(devService, Mockito.atLeast(1)).delete(any(Integer.class));
     }
 }
