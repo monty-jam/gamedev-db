@@ -25,12 +25,12 @@ public class Dev {
         this.studio = studio;
     }
 
-//    public Dev(Integer id, String name, String surname, String specialization, Studio studio) {
-//        this.id = id;
-//        this.name = name;
-//        this.surname = surname;
-//        this.specialization = specialization;
-//    }
+    public Dev(Integer id, String name, String surname, String specialization, Studio studio) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.specialization = specialization;
+    }
 
     public Integer getId() {
         return id;

@@ -14,7 +14,7 @@ public class Game {
     private String genre;
 
     @ManyToMany(mappedBy = "games")
-    private List<Studio> studios;
+    private List<Studio> studios = new ArrayList<>();;
 
     public Game() {
     }
@@ -24,11 +24,11 @@ public class Game {
         this.genre = genre;
     }
 
-//    public Game(Integer id, String name, String genre) {
-//        this.id = id;
-//        this.name = name;
-//        this.genre = genre;
-//    }
+    public Game(Integer id, String name, String genre) {
+        this.id = id;
+        this.name = name;
+        this.genre = genre;
+    }
 
     public Integer getId() {
         return id;

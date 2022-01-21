@@ -14,14 +14,14 @@ public class Studio {
     private String country;
 
     @OneToMany(mappedBy = "studio")
-    private List<Dev> devs;
+    private List<Dev> devs = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "studio_game",
             joinColumns = @JoinColumn(name = "studio_id"),
             inverseJoinColumns = @JoinColumn(name = "game_id")
     )
-    private List<Game> games;
+    private List<Game> games = new ArrayList<>();;
 
     public Studio() {
     }
