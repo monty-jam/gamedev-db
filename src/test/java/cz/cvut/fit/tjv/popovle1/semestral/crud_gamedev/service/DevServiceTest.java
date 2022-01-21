@@ -36,11 +36,21 @@ public class DevServiceTest {
     private final DevDTO devDTO2 = new DevDTO(null, "John", "Carmack", "Programmer", 1);
     private final DevDTO newDevDTO2 = new DevDTO(null, "Edmund", "McMillen", "Art Designer", 2);
 
-
-
     @Test
     void createTest() throws Exception {
+        BDDMockito.given(devRepo.save(any(Dev.class))).willReturn(dev1);
+        DevDTO retDev = devService.create(devDTO1);
 
+        Assertions.assertEquals(retDev.getName(), devDTO1.getName());
+        Assertions.assertEquals(retDev.getSurname(), devDTO1.getSurname());
+        Assertions.assertEquals(retDev.getSpecialization(), devDTO1.getSpecialization());
+        Assertions.assertEquals(retDev.getStudioId(), devDTO1.getStudioId());
+
+        Mockito.verify(devRepo, Mockito.times(1)).save(any(Dev.class));
+    }
+
+    @Test
+    void createWithStudioTest() throws Exception {
         BDDMockito.given(studioRepo.findById(1)).willReturn(Optional.of(studio2));
         BDDMockito.given(devRepo.save(any(Dev.class))).willReturn(dev2);
 
@@ -53,6 +63,16 @@ public class DevServiceTest {
 
         Mockito.verify(studioRepo, Mockito.times(1)).findById(1);
         Mockito.verify(devRepo, Mockito.times(1)).save(any(Dev.class));
+    }
+
+    @Test
+    void readTest() throws Exception {
+
+    }
+
+    @Test
+    void readAllTest() throws Exception {
+
     }
 
 }
