@@ -2,6 +2,7 @@ package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.controller;
 
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.dto.GameDTO;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.dto.StudioDTO;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Studio;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.AlreadyExistsException;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.exception.NotFoundException;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.service.GameService;
@@ -154,5 +155,29 @@ public class GameControllerTest {
         ).andExpect(MockMvcResultMatchers.status().isOk());
 
         Mockito.verify(gameService, Mockito.atLeast(1)).delete(any(Integer.class));
+    }
+
+    @Test
+    void hireHuntTest() throws Exception {
+        StudioDTO hireStudioDTO = new StudioDTO(null, "id Software", "United States of America", List.of(1), null);
+
+        BDDMockito.given(gameService.hireHunt(any(Integer.class), Mockito.anyList())).willReturn(hireStudioDTO);
+        mockMvc.perform(
+                MockMvcRequestBuilders
+                        .put("/games/hireHunt/{id}", 1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("[\"Artist\"]")
+                ).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.devsIds", CoreMatchers.is(hireStudioDTO.getDevsIds())));
+
+        BDDMockito.given(gameService.hireHunt(any(Integer.class), Mockito.anyList())).willThrow(NotFoundException.class);
+        mockMvc.perform(
+                        MockMvcRequestBuilders
+                                .put("/games/hireHunt/{id}", 5)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("[\"Artist\"]")
+                ).andExpect(MockMvcResultMatchers.status().isNotFound());
+
+        Mockito.verify(gameService, Mockito.atLeast(2)).hireHunt(any(Integer.class), Mockito.anyList());
     }
 }

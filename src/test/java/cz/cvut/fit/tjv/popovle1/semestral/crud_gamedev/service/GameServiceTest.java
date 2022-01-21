@@ -2,6 +2,7 @@ package cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.service;
 
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.dto.GameDTO;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.dto.StudioDTO;
+import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Dev;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Game;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.entity.Studio;
 import cz.cvut.fit.tjv.popovle1.semestral.crud_gamedev.repository.DevRepo;
@@ -30,6 +31,10 @@ public class GameServiceTest {
     private StudioRepo studioRepo;
     @MockBean
     private GameRepo gameRepo;
+    @MockBean
+    private DevRepo devRepo;
+
+    private final Dev dev = new Dev(1, "Edmund", "McMillen", "Game Designer", null);
 
     private final Studio studio = new Studio(1, "id Software", "United States of America");
     private final StudioDTO studioDTO = new StudioDTO(null, "id Software", "United States of America", null, null);
@@ -106,5 +111,19 @@ public class GameServiceTest {
 
         Mockito.verify(gameRepo, Mockito.times(1)).findById(game.getId());
         Mockito.verify(gameRepo, Mockito.times(1)).deleteById(game.getId());
+    }
+
+    @Test
+    void hireHuntTest() throws Exception {
+        BDDMockito.given(gameRepo.findById(game.getId())).willReturn(Optional.of(game));
+        BDDMockito.given(devRepo.findBySpecializationInAndStudioIdNull(Mockito.anyList())).willReturn(List.of(dev));
+
+        BDDMockito.given(studioRepo.save(any(Studio.class))).willReturn(studio);
+
+        StudioDTO retStudio = gameService.hireHunt(game.getId(), List.of("Artist"));
+
+        Assertions.assertEquals(retStudio.getDevsIds().size(), 1);
+
+        Mockito.verify(studioRepo, Mockito.times(1)).save(any(Studio.class));
     }
 }
