@@ -61,8 +61,8 @@ public class GameService {
         return GameConverter.toDTO(gameRepo.findById(id).get());
     }
 
-    public Collection<Game> readAll() {
-        return gameRepo.findAll();
+    public Collection<GameDTO> readAll() {
+        return GameConverter.toDTOs(gameRepo.findAll());
     }
 
     public GameDTO update(GameDTO gameDTO, Integer id) throws Exception {

@@ -73,8 +73,8 @@ public class StudioService {
         return StudioConverter.toDTO(studioRepo.findById(id).get());
     }
 
-    public Collection<Studio> readAll() {
-        return studioRepo.findAll();
+    public Collection<StudioDTO> readAll() {
+        return StudioConverter.toDTOs(studioRepo.findAll());
     }
 
     public StudioDTO update(StudioDTO studioDTO, Integer id) throws Exception {

@@ -42,7 +42,7 @@ public class DevController {
 
     @GetMapping
     public Collection<DevDTO> readAll() {
-        return DevConverter.toDTOs(devService.readAll());
+        return devService.readAll();
     }
 
     @PutMapping("/{id}")

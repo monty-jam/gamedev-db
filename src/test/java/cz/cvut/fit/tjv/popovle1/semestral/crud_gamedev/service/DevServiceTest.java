@@ -88,12 +88,12 @@ public class DevServiceTest {
     }
 
     @Test
-    void readAllTest() throws Exception {
+    void readAllTest() {
         List<Dev> devs = List.of(dev1, dev2);
 
         BDDMockito.given(devRepo.findAll()).willReturn(devs);
 
-        Collection<Dev> retDevs = devService.readAll();
+        Collection<DevDTO> retDevs = devService.readAll();
 
         Assertions.assertEquals(retDevs.size(), 2);
         Mockito.verify(devRepo, Mockito.times(1)).findAll();

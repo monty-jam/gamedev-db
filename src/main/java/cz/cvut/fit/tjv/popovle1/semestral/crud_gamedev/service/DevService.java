@@ -43,8 +43,8 @@ public class DevService {
         return DevConverter.toDTO(devRepo.findById(id).get());
     }
 
-    public Collection<Dev> readAll() {
-        return devRepo.findAll();
+    public Collection<DevDTO> readAll() {
+        return DevConverter.toDTOs(devRepo.findAll());
     }
 
     public DevDTO update(DevDTO devDTO, Integer id) throws Exception {

@@ -48,7 +48,7 @@ public class GameController {
 
     @GetMapping
     public Collection<GameDTO> readAll() {
-        return GameConverter.toDTOs(gameService.readAll());
+        return gameService.readAll();
     }
 
     @PutMapping("/{id}")

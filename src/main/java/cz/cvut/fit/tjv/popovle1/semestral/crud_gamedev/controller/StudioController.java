@@ -46,7 +46,7 @@ public class StudioController {
 
     @GetMapping
     public Collection<StudioDTO> readAll() {
-        return StudioConverter.toDTOs(studioService.readAll());
+        return studioService.readAll();
     }
 
     @PutMapping("/{id}")
