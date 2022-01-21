@@ -37,6 +37,15 @@ public class Studio {
 //        this.country = country;
 //    }
 
+
+    public Studio(Integer id, String name, String country, List<Dev> devs, List<Game> games) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+        this.devs = devs;
+        this.games = games;
+    }
+
     public Integer getId() {
         return id;
     }
