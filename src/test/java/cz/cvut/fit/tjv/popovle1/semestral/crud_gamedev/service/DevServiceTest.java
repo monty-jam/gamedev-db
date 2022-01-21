@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -27,14 +29,18 @@ public class DevServiceTest {
     @MockBean
     private StudioRepo studioRepo;
 
-    private final Dev dev1 = new Dev("John", "Carmack", "Programmer", null);
-    private final DevDTO devDTO1 = new DevDTO(null, "John", "Carmack", "Programmer", null);
-    private final DevDTO newDevDTO1 = new DevDTO(null, "Edmund", "McMillen", "Art Designer", null);
+    private final Studio studio = new Studio(1, "id Software", "United States of America", null, null);
+    private final Studio newStudio = new Studio(2, "Ubisoft", "France", null, null);
 
-    private final Studio studio2 = new Studio(1, "id Software", "United States of America", null, null);
-    private final Dev dev2 = new Dev("John", "Carmack", "Programmer", studio2);
+    // For tests without studio
+    private final Dev dev1 = new Dev("John", "Carmack", "Programmer", null);
+    private final DevDTO devDTO1 = new DevDTO(null, "Michel", "Ancel", "Art Designer", null);
+    private final DevDTO newDevDTO1 = new DevDTO(null, "Michel", "Ancel", "Art Designer", null);
+
+    // For tests with studio
+    private final Dev dev2 = new Dev("John", "Carmack", "Programmer", studio);
     private final DevDTO devDTO2 = new DevDTO(null, "John", "Carmack", "Programmer", 1);
-    private final DevDTO newDevDTO2 = new DevDTO(null, "Edmund", "McMillen", "Art Designer", 2);
+    private final DevDTO newDevDTO2 = new DevDTO(null, "Michel", "Ancel", "Art Designer", 2);
 
     @Test
     void createTest() throws Exception {
@@ -51,7 +57,7 @@ public class DevServiceTest {
 
     @Test
     void createWithStudioTest() throws Exception {
-        BDDMockito.given(studioRepo.findById(1)).willReturn(Optional.of(studio2));
+        BDDMockito.given(studioRepo.findById(1)).willReturn(Optional.of(studio));
         BDDMockito.given(devRepo.save(any(Dev.class))).willReturn(dev2);
 
         DevDTO retDev = devService.create(devDTO2);
@@ -67,12 +73,37 @@ public class DevServiceTest {
 
     @Test
     void readTest() throws Exception {
+        BDDMockito.given(devRepo.findById(1)).willReturn(Optional.of(dev2));
 
+        DevDTO retDev = devService.read(1);
+
+        Assertions.assertEquals(retDev.getName(), devDTO2.getName());
+        Assertions.assertEquals(retDev.getSurname(), devDTO2.getSurname());
+        Assertions.assertEquals(retDev.getSpecialization(), devDTO2.getSpecialization());
+        Assertions.assertEquals(retDev.getStudioId(), devDTO2.getStudioId());
+
+        Mockito.verify(devRepo, Mockito.times(2)).findById(1);
     }
 
     @Test
     void readAllTest() throws Exception {
+        List<Dev> devs = List.of(dev1, dev2);
 
+        BDDMockito.given(devRepo.findAll()).willReturn(devs);
+
+        Collection<Dev> retDevs = devService.readAll();
+
+        Assertions.assertEquals(retDevs.size(), 2);
+        Mockito.verify(devRepo, Mockito.times(1)).findAll();
+    }
+
+    @Test
+    void deleteTest() throws Exception {
+        BDDMockito.given(devRepo.findById(dev1.getId())).willReturn(Optional.of(dev1));
+        devService.delete(dev1.getId());
+
+        Mockito.verify(devRepo, Mockito.times(1)).findById(dev1.getId());
+        Mockito.verify(devRepo, Mockito.times(1)).deleteById(dev1.getId());
     }
 
 }
